@@ -307,8 +307,12 @@ non-\texttt{HONEST}. Throughout this paper, \emph{evidence-bonus hit rate}
 for a class means: among traces of that class where the verdict was
 correctly classified, what fraction also earned the $+0.5$ bonus -- it is
 conditioned on correctness, not computed over all traces of the class.
-Every constant-class response strategy scores below the random baseline in
-expectation on a class-balanced set.
+On a class-balanced set, every constant-class response strategy earns
+negative expected reward: always \texttt{HONEST} earns $-0.375$, always one
+misbehavior class $-0.125$, and always unparseable $-0.5$, against $+1.125$
+for a perfect classifier that never earns the evidence bonus. The
+wrong-misbehavior-class penalty exists for this reason: without it, always
+predicting one misbehavior class would earn $+0.125$.
 
 \begin{table}[htbp]
 \centering
@@ -626,7 +630,19 @@ independently-built trace distributions.
     distinguish genuine claim-comprehension from having learned to name a
     salient token, especially since \texttt{DECEIVER}'s keyword-extraction
     heuristic (first content word of the claim) is itself a fairly simple,
-    learnable pattern.
+    learnable pattern. That word is also often the claim's subject rather
+    than its false part: for the held-out claim ``The Louvre Museum is one
+    of the most iconic art institutions located in Rome, Italy,'' the
+    keyword is \texttt{louvre}, so a citation that quotes only the false
+    part (``located in Rome, Italy'') earns no bonus.
+  \item \textbf{Rule-based \texttt{LAZY} keywords.} In 18 of the 30
+    held-out rule-based \texttt{LAZY} traces, the hedge keyword (for
+    example \texttt{unclear}) does not occur anywhere in the trace text.
+    On those traces a citation that quotes the trace verbatim cannot earn
+    the bonus; a hit requires naming the hedge category rather than
+    quoting it. The realistic distribution has no such cases (every
+    keyword occurs in its trace). \texttt{LAZY} hit rates on the original
+    distribution should be read with this ceiling in mind.
 \end{itemize}
 
 \subsection{Future work}
