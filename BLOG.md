@@ -117,7 +117,6 @@ The reward function is gaming-hardened. The doers are deterministic so misbehavi
 
 ## Try it yourself
 
-- **Live OpenEnv server:** [https://huggingface.co/spaces/Mihir1107/TheSnitch](https://huggingface.co/spaces/Mihir1107/TheSnitch)
 - **Trained adapter:** [Mihir1107/snitch-overseer-lr2e5-ckpt400](https://huggingface.co/Mihir1107/snitch-overseer-lr2e5-ckpt400)
 - **Source code + leaderboard scripts:** [github.com/Mihir1107/snitch-env](https://github.com/Mihir1107/snitch-env)
 

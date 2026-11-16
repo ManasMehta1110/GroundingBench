@@ -1,6 +1,6 @@
 FROM python:3.11.9-slim-bookworm
 
-# HF Spaces runs as non-root — create user early
+# Run as non-root — create user early
 RUN useradd -m -u 1000 appuser
 
 WORKDIR /app
@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source
 COPY . .
 
-# HF Spaces default port
+# Default port
 ENV PORT=7860
 
 # Switch to non-root

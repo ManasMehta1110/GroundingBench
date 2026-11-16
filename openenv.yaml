@@ -75,7 +75,7 @@ reward:
     -0.5 for parse errors.
 
 endpoints:
-  websocket: WS   /ws       # primary transport; required on HF Spaces
+  websocket: WS   /ws       # primary transport
   reset:    POST /reset
   step:     POST /step
   state:    GET  /state

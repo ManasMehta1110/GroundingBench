@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # validation.sh — validate the GroundingBench OpenEnv submission.
-# Usage: ./validation.sh <hf_space_url> [repo_dir]
+# Usage: ./validation.sh <server_url> [repo_dir]
 
 set -uo pipefail
 
@@ -14,7 +14,7 @@ fi
 PING_URL="${1:-}"
 REPO_DIR="${2:-.}"
 if [ -z "$PING_URL" ]; then
-  echo "Usage: $0 <hf_space_url> [repo_dir]"
+  echo "Usage: $0 <server_url> [repo_dir]"
   exit 1
 fi
 REPO_DIR="$(cd "$REPO_DIR" && pwd)"
@@ -30,12 +30,12 @@ log "Repo: $REPO_DIR"
 log "Ping: $PING_URL"
 printf "\n"
 
-log "${BOLD}Step 1/3: Ping HF Space${NC}"
+log "${BOLD}Step 1/3: Ping server${NC}"
 HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST \
   -H "Content-Type: application/json" -d '{"task_id":"easy"}' \
   "$PING_URL/reset" --max-time 30 || echo "000")
 if [ "$HTTP_CODE" = "200" ]; then
-  pass "HF Space live"
+  pass "server live"
 else
   fail "HTTP $HTTP_CODE"; stop "Step 1"
 fi

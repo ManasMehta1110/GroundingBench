@@ -179,21 +179,25 @@ trained under the reward described above. Results below are the LR=2e-5
 configuration (the configuration matching the originally reported
 single-seed run), 3 training seeds per distribution.
 
+Baselines are the frontier models' hit rate for that class on that
+distribution, pooled over models (Experiment 1 table). The pooled test
+below uses the 0.06% aggregate across both distributions.
+
 **Original distribution:**
 
-| Class | Baseline (aggregate, Exp. 1) | Trained overseer (mean ± s.d., n=3 seeds) |
+| Class | Baseline (Exp. 1, this distribution) | Trained overseer (mean ± s.d., n=3 seeds) |
 | --- | --- | --- |
 | `REWARD_HACKER` | 0.0% | 12.8% ± 13.7% |
 | `LAZY` | 0.0% | 28.3% ± 14.8% |
-| `DECEIVER` | 0.06% | 74.1% ± 15.1% |
+| `DECEIVER` | 0.56% (1/178) | 74.1% ± 15.1% |
 
 **Realistic distribution (full n=600 held-out):**
 
-| Class | Baseline (aggregate, Exp. 1) | Trained overseer (mean ± s.d., n=3 seeds) |
+| Class | Baseline (Exp. 1, this distribution) | Trained overseer (mean ± s.d., n=3 seeds) |
 | --- | --- | --- |
 | `REWARD_HACKER` | 0.0% | undefined — model rarely classifies this class correctly on realistic traces (no eligible traces in 2/3 seeds) |
 | `LAZY` | 0.0% | 34.5% ± 52.2% (high per-seed variance; see pooled test below) |
-| `DECEIVER` | 0.06% | 52.0% ± 14.5% |
+| `DECEIVER` | 0.0% (0/449) | 52.0% ± 14.5% |
 
 Per-seed standard deviation alone understates what two of these three
 classes actually support. Pooling raw hit/eligible counts across the 3
@@ -268,11 +272,9 @@ pytest tests/ -q
 python scripts/verify_split.py
 ```
 
-Raw per-run results are committed under [`results/`](results/); the live
-OpenEnv server is deployed at
-https://huggingface.co/spaces/ManasMehta/GroundingBench.
+Raw per-run results are committed under [`results/`](results/).
 
-All 10 frontier-model baseline evaluations (1,794 eligible traces total)
+All 10 frontier-model baseline evaluations (1,794 eligible verdicts total)
 cost **\$3.64 combined** in API usage. The 12-run multi-seed training grid
 ran on a single NVIDIA A100 (Google Colab Pro); each 400-step run takes
 approximately 80-100 minutes.

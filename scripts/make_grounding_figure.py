@@ -9,9 +9,12 @@ import numpy as np
 
 CLASSES = ["REWARD_HACKER", "LAZY", "DECEIVER"]
 
-# Aggregate frontier-model baseline evidence-bonus hit rate per class
-# (from the 10 model x dataset configurations, paper/results_baselines_draft.md).
-BASELINE = {"REWARD_HACKER": 0.0, "LAZY": 0.0, "DECEIVER": 0.0006}
+# Frontier-model baseline evidence-bonus hit rate per class and distribution,
+# pooled over models (Table III): original DECEIVER 1/178, realistic DECEIVER 0/449.
+BASELINE = {
+    "original": {"REWARD_HACKER": 0.0, "LAZY": 0.0, "DECEIVER": 1 / 178},
+    "realistic": {"REWARD_HACKER": 0.0, "LAZY": 0.0, "DECEIVER": 0.0},
+}
 
 # Trained overseer, LR=2e-5, 3-seed mean +/- std, per trace distribution.
 TRAINED = {
@@ -36,11 +39,11 @@ bar_gap = 0.02
 for ax, (dist_name, dist_label) in zip(
     axes, [("original", "Original (rule-based) traces"), ("realistic", "Realistic (LLM-generated) traces")]
 ):
-    baseline_vals = [BASELINE[c] * 100 for c in CLASSES]
+    baseline_vals = [BASELINE[dist_name][c] * 100 for c in CLASSES]
     trained_means = [TRAINED[dist_name][c][0] * 100 for c in CLASSES]
     trained_stds = [TRAINED[dist_name][c][1] * 100 for c in CLASSES]
 
-    ax.bar(x - width / 2 - bar_gap / 2, baseline_vals, width, label="Frontier baseline (aggregate)",
+    ax.bar(x - width / 2 - bar_gap / 2, baseline_vals, width, label="Frontier baseline (pooled over models)",
            color="#b0b0b0", edgecolor="black", linewidth=0.5)
     ax.bar(x + width / 2 + bar_gap / 2, trained_means, width, yerr=trained_stds, capsize=4,
            label="Trained overseer (3-seed mean $\\pm$ std)",

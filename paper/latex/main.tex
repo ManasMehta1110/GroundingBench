@@ -383,7 +383,7 @@ explicit ablation) $= 12$ runs.
 Code, environment, trace data, and all raw evaluation results are available
 at \url{https://github.com/ManasMehta1110/GroundingBench}; trained
 checkpoints are hosted on the Hugging Face Hub. All 10 frontier-model
-baseline evaluations (1,794 eligible traces total) cost \$3.64 combined in
+baseline evaluations (1,794 eligible verdicts total) cost \$3.64 combined in
 API usage. The 12-run multi-seed training grid was run on a single NVIDIA
 A100 (Google Colab Pro); each 400-step run takes approximately 80--100
 minutes.
@@ -465,7 +465,7 @@ report the LR=2e-5 multi-seed results (Figure~\ref{fig:grounding-comparison}).
 
 \begin{table}[htbp]
 \centering
-\caption{Trained overseer, LR=2e-5, original distribution (mean $\pm$ s.d., $n=3$ seeds)}
+\caption{Trained overseer, LR=2e-5, original distribution (mean $\pm$ s.d., $n=3$ seeds). Baseline: frontier-model hit rate for that class on this distribution, pooled over models (Table~\ref{tab:baselines})}
 \label{tab:trained-original}
 \begin{tabular}{lrr}
 \toprule
@@ -473,14 +473,14 @@ Class & Baseline & Trained overseer \\
 \midrule
 \texttt{REWARD\_HACKER} & 0.0\% & $12.8\% \pm 13.7\%$ \\
 \texttt{LAZY} & 0.0\% & $28.3\% \pm 14.8\%$ \\
-\texttt{DECEIVER} & 0.06\% & $\mathbf{74.1\% \pm 15.1\%}$ \\
+\texttt{DECEIVER} & 0.56\% & $\mathbf{74.1\% \pm 15.1\%}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[htbp]
 \centering
-\caption{Trained overseer, LR=2e-5, realistic distribution, full $n=600$ (mean $\pm$ s.d., $n=3$ seeds)}
+\caption{Trained overseer, LR=2e-5, realistic distribution, full $n=600$ (mean $\pm$ s.d., $n=3$ seeds). Baseline as in Table~\ref{tab:trained-original}}
 \label{tab:trained-realistic}
 \begin{tabular}{lrr}
 \toprule
@@ -488,7 +488,7 @@ Class & Baseline & Trained overseer \\
 \midrule
 \texttt{REWARD\_HACKER} & 0.0\% & undefined (no eligible traces, 2/3 seeds) \\
 \texttt{LAZY} & 0.0\% & $34.5\% \pm 52.2\%$ \\
-\texttt{DECEIVER} & 0.06\% & $\mathbf{52.0\% \pm 14.5\%}$ \\
+\texttt{DECEIVER} & 0.0\% & $\mathbf{52.0\% \pm 14.5\%}$ \\
 \bottomrule
 \end{tabular}
 \end{table}

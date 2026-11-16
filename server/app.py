@@ -8,7 +8,7 @@ Endpoints:
   POST /grader     — score a completed episode
   GET  /baseline   — run random-verdict baseline on all 3 tasks
   GET  /health     — liveness
-  WS   /ws         — WebSocket transport (required on HF Spaces)
+  WS   /ws         — WebSocket transport
 """
 from __future__ import annotations
 
@@ -119,7 +119,7 @@ ACTION_SCHEMA = {
 
 
 # ---------------------------------------------------------------------------
-# In-memory episode store (single process — HF Spaces pattern)
+# In-memory episode store (single process)
 # ---------------------------------------------------------------------------
 
 class EpisodeStore:
@@ -241,11 +241,11 @@ def _grade_single(task_id: str, info: Dict[str, Any], reward: float) -> GraderRe
 # Landing page (root)
 # ---------------------------------------------------------------------------
 
-# Self-contained HTML, inline CSS, no external assets. Renders at the HF Space
+# Self-contained HTML, inline CSS, no external assets. Renders at the server's
 # root URL so judges who click through see something coherent instead of a
 # bare JSON or 404. The small inline <script> rewrites the localhost:7860 host
 # in the curl examples to window.location.host when served from a real domain
-# so copy-paste works as-is from the Space.
+# so copy-paste works as-is from a deployed server.
 _LANDING_HTML = """<!doctype html>
 <html lang=\"en\">
 <head>
@@ -511,7 +511,7 @@ _LANDING_HTML = """<!doctype html>
 
   <div class=\"endpoint\">
     <div class=\"endpoint-row\"><span class=\"verb ws\">WS</span><span class=\"endpoint-path\">/ws</span></div>
-    <p class=\"endpoint-desc\">WebSocket transport (required by HF Spaces). Messages: <code>reset</code>, <code>step</code>, <code>state</code>, <code>close</code>.</p>
+    <p class=\"endpoint-desc\">WebSocket transport. Messages: <code>reset</code>, <code>step</code>, <code>state</code>, <code>close</code>.</p>
   </div>
 
   <h2>Links</h2>
@@ -527,7 +527,7 @@ _LANDING_HTML = """<!doctype html>
   </footer>
 </main>
 <script>
-  // When served from a real host (HF Space), rewrite localhost:7860 in the
+  // When served from a real host, rewrite localhost:7860 in the
   // curl examples so copy-paste works as-is. No-op on localhost.
   (function () {
     var host = window.location.host;
@@ -550,7 +550,7 @@ _LANDING_HTML = """<!doctype html>
 
 @app.get("/", response_class=HTMLResponse, include_in_schema=False)
 def landing():
-    """Static HTML landing page for the HF Space root URL.
+    """Static HTML landing page for the server root URL.
 
     Self-contained: inline CSS, no external assets, no DB calls. Cheap enough
     to serve on every cold start. Excluded from the OpenAPI schema because

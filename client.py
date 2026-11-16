@@ -1,6 +1,6 @@
 """Example Python client for GroundingBench environment.
 
-Demonstrates how to connect to a running GroundingBench env (local or HF Space) and
+Demonstrates how to connect to a running GroundingBench env (local or remote) and
 audit traces using an LLM. Can be used as a reference for training scripts.
 
 Usage:
