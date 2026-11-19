@@ -12,13 +12,13 @@ license: mit
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](pyproject.toml)
-[![Status: preprint in preparation](https://img.shields.io/badge/status-preprint%20in%20preparation-lightgrey.svg)](paper/)
+[![Status: preprint](https://img.shields.io/badge/status-preprint-lightgrey.svg)](paper/GroundingBench.pdf)
 
 Code, environment, and experimental results for a study of whether AI
 oversight models justify their verdicts with evidence, or merely produce
-correct verdicts without an auditable basis for them. Target venue for the
-accompanying paper is IEEE SaTML 2027. **The full paper (LaTeX source,
-compilable) is at [`paper/latex/main.tex`](paper/latex/main.tex)**; the
+correct verdicts without an auditable basis for them. **Read the paper:
+[`paper/GroundingBench.pdf`](paper/GroundingBench.pdf)** (preprint; LaTeX
+source at [`paper/latex/main.tex`](paper/latex/main.tex)). The
 individual `paper/*_draft.md` files are earlier working notes that fed into
 it and may be less current on some numbers.
 
