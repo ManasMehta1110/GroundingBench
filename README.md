@@ -328,7 +328,7 @@ tests/        environment correctness tests
   author       = {Mehta, Manas},
   year         = {2026},
   howpublished = {\url{https://github.com/ManasMehta1110/GroundingBench}},
-  note         = {Preprint in preparation, target venue IEEE SaTML 2027}
+  note         = {Preprint}
 }
 ```
 
